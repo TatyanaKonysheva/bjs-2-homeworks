@@ -1,6 +1,8 @@
-﻿﻿function parseCount(value) {
-    const parsedValue = Number.parseFloat(value);
-    if (Number.isNaN(parsedValue)) {
+﻿﻿'use strickt'
+
+function parseCount(value) {
+    const parsedValue = parseFloat(value);
+    if (isNaN(parsedValue)) {
       throw new Error("Невалидное значение");
     }
     return parsedValue;
@@ -16,7 +18,7 @@
   
   class Triangle {
     constructor(a, b, c) {
-      if (a + b <= c || a + c <= b || b + c <= a) {
+      if (a + b < c || a + c < b || b + c < a) {
         throw new Error("Треугольник с такими сторонами не существует");
       }
       this.a = a;
@@ -30,8 +32,8 @@
   
     get area() {
       const s = this.perimeter / 2;
-      const area = Math.sqrt(s * (s - this.a) * (s - this.b) * (s - this.c));
-      return parseFloat(area.toFixed(3));
+      const area = +Math.sqrt(s * (s - this.a) * (s - this.b) * (s - this.c)).toFixed(3);
+      return area;
     }
   }
   
@@ -40,9 +42,6 @@
       return new Triangle(a, b, c);
     } catch (error) {
       return {
-        hasOwnProperty(key) {
-          return key === 'perimeter' || key === 'area';
-        },
         get area() {
           return "Ошибка! Треугольник не существует";
         },
