@@ -1,3 +1,5 @@
+'use strickt'
+
 class PrintEditionItem {
 	constructor(name, releaseDate, pagesCount) {
 		this.name = name;
@@ -75,18 +77,24 @@ class Library {
 	}
 
 	findBookBy(type, value) {
-		for(let book of this.books) {
+/*		for(let book of this.books) {
 			if(book[type] === value) {
 				return book;
 			}
 		}
-		return null;
+		return null;*/
+
+// метод для массива в JavaScript
+		return this.books.find(book => book[type] === value) || null;
 	}
 
 	giveBookByName(bookName) {
 		for(let i = 0; i < this.books.length; i++) {
 			if(this.books[i].name === bookName) {
-				return this.books.splice(i, 1)[0];
+				const book = this.book[i];
+				return this.books.splice(i, 1)[0]; 
+				/* splice позволяет изменить содержимое массива за счёт 
+				удаления существующих элементов, и/или добавления новых элементов в массив*/
 			}
 		}
 		return null;
@@ -105,14 +113,20 @@ class Student {
 		} else if (mark > 5) {
 			return;
 		}
-		if(!this.marks[subject]) {
+		/* if(!this.marks[subject]) {
+			this.marks[subject] = [];
+		}*/
+		if (!this.marks.hasOwnProperty(subject)) {
 			this.marks[subject] = [];
 		}
 		this.marks[subject].push(mark);
 	}
 
 	getAverageBySubject(subject) {
-		if(!this.marks[subject]) {
+		/*if(!this.marks[subject]) {
+			return 0;
+		}*/
+		if (!this.marks.hasOwnProperty(subject)) {
 			return 0;
 		}
 		return this.marks[subject].reduce((acc, mark) => acc + mark / this.marks[subject].length, 0);
